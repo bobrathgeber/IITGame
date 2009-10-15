@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<questions>
+
+<multiChoice>
+    <level>1</level>
+    <questionNum>1</questionNum>
+    <question>Which of the following activites do you like to do most? </question>
+    <ID>Develop print documents for training purposes.</ID>
+    <lms>Troubleshoot basic computer network issues.</lms>
+    <gd>Create / manipulate images in computer editing programs.</gd>
+	<IDfb>Go find the Laptop!</IDfb>
+	<lmsfb>Go find the Password List!</lmsfb>
+	<gdfb>Go find the Camera!</gdfb>
+</multiChoice>
+<multiChoice>
+    <level>1</level>
+    <questionNum>2</questionNum>
+    <question>Which of the following qualities best describes you?</question>
+    <ID>Analytical, systematic planner.</ID>
+    <lms>Organized, able to multi-task and problem solve.</lms>
+    <gd>Creative, visual thinker.</gd>
+	<IDfb>Go find the Laptop!</IDfb>
+	<lmsfb>Go find the Password List!</lmsfb>
+	<gdfb>Go find the Camera!</gdfb>
+</multiChoice>
+<multiChoice>
+    <level>1</level>
+    <questionNum>3</questionNum>
+    <question>Do you learn best by...</question>
+    <ID>Having details written down, A-Z, how to accomplish your goal?</ID>
+    <lms>Hearing how it is done to formultate how you want to proceed after analyzing all of the parts?</lms>
+    <gd>Visually seeing how something is done, with pictures or a map?</gd>
+	<IDfb>Go find the Laptop!</IDfb>
+	<lmsfb>Go find the Password List!</lmsfb>
+	<gdfb>Go find the Camera!</gdfb>
+</multiChoice>
+
+</questions>
