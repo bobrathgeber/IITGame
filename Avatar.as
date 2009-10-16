@@ -1,20 +1,50 @@
 ﻿package {
 
 	public class Avatar {
+		// fields
 		private _mc:MovieClip;
 		private _inventory:Array;
 		private _pos:Position;
-		
+		private _hitbox:Rectangle;
+		private _bmpData:BitmapData;
+				
+		// ctor
 		public function Avatar(mc:MovieClip) {
-			_mc = mc;
-			//_invatory  initalize
+			_mc = mc;			
 			_pos = new Position(mc);
+			// trace mc.Parent
+			_hitbox = new Rectangle(mc.parent);
+			
+			_bmpData = new BitmapData(_hitbox.width, _hitbox.height, true, 0);
+			_bmpData.draw(avatar_mc);
 		}
-		
+		// property
+		public function get BmpData:BitmapData
+		{
+			return _bmpData;
+		}
+		// methods
 		public function Pickup(item:wObject):void
 		{
 			//throw new Exception();
 			//_inventory.Add(item);
+		}
+				
+		public function SetSex(avatarSex:int):void
+		{
+			if (avatarSex==1) {
+				avatar.ShowBoy();
+			} else {
+				avatar.ShowGirl();
+			}
+		}
+		public function ShowBoy():void
+		{
+			_mc.girl.visible=false;
+		}
+		public function ShowGirl():void
+		{
+			_mc.boy.visible=false;
 		}
 		
 		public function Drop(item:wObject):void
@@ -41,68 +71,17 @@
 			}
 			
 		}
+		
 		public function Move(mv:MovementVector):void
 		{
+			// rotate
+			_mc.rotation = mv.Direction;
 			
-		if (avatar_mc.y<=75&&upArrow) {
-			moveObject(bg_mc, 0, 1);
-			avatar_mc.rotation=90;
-			avatar_mc.gotoAndStop(avatar_mc.currentFrame+1);
-		}
-		if (avatar_mc.y>=400&&downArrow) {
-			moveObject(bg_mc, 0, -1);
-			avatar_mc.rotation=270;
-			avatar_mc.gotoAndStop(avatar_mc.currentFrame+1);
-		}
-		if (avatar_mc.x<=75&&leftArrow) {
-			moveObject(bg_mc, 1, 0);
-			avatar_mc.rotation=0;
-			avatar_mc.gotoAndStop(avatar_mc.currentFrame+1);
-		}
-		if (avatar_mc.x>=575&&rightArrow) {
-			moveObject(bg_mc, -1, 0);
-			avatar_mc.rotation=180;
-			avatar_mc.gotoAndStop(avatar_mc.currentFrame+1);
-		}
-	} else if (leftArrow && upArrow) {
-		moveObject(avatar_mc, -0.5, -0.5);
-		avatar_mc.rotation=45;
-		avatar_mc.gotoAndStop(avatar_mc.currentFrame+1);
-	} else if (rightArrow && upArrow) {
-		moveObject(avatar_mc, 0.5, -0.5);
-		avatar_mc.rotation=135;
-		avatar_mc.gotoAndStop(avatar_mc.currentFrame+1);
-	} else if (leftArrow && downArrow) {
-		moveObject(avatar_mc, -0.5, 0.5);
-		avatar_mc.rotation=315;
-		avatar_mc.gotoAndStop(avatar_mc.currentFrame+1);
-	} else if (downArrow && rightArrow) {
-		moveObject(avatar_mc, 0.5, 0.5);
-		avatar_mc.rotation=225;
-		avatar_mc.gotoAndStop(avatar_mc.currentFrame+1);
-	} else {
-		if (leftArrow) {
-			moveObject(avatar_mc, -1, 0);
-			avatar_mc.rotation=0;
-			avatar_mc.gotoAndStop(avatar_mc.currentFrame+1);
-		}
-		if (rightArrow) {
-			moveObject(avatar_mc, 1, 0);
-			avatar_mc.rotation=180;
-			avatar_mc.gotoAndStop(avatar_mc.currentFrame+1);
-		}
-		if (upArrow) {
-			moveObject(avatar_mc, 0, -1);
-			avatar_mc.rotation=90;
-			avatar_mc.gotoAndStop(avatar_mc.currentFrame+1);
-		}
-		if (downArrow) {
-			moveObject(avatar_mc, 0, 1);
-			avatar_mc.rotation=270;
-			avatar_mc.gotoAndStop(avatar_mc.currentFrame+1);
-		}
-	}
+			// walk if moving
+			if (_mc.Speed > 0)
+			{
+				_mc.gotoAndStop(_mc.currentFrame+1);
+			}		
 		}		
 	}
-	
 }
