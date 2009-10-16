@@ -9,12 +9,13 @@
 	
 	
 	public class Game {
-		private var _world:Array;
+		private var _world:MovieClip;
 		private var _npcs:Array;
 		
 		private var _wall:MovieClip;
 		private var _view:Rectangle;
-		private var _playerSpawn:Position = new Position(370, 220);
+	
+		private var _playerSpawn:Position;
 		private var _container:MovieClip;
 
 		var _idScore:Number = 0;
@@ -25,13 +26,24 @@
 		{
 			mc.x=370;
 			mc.y=220;
-			_container.addChild(avatar_mc);
+			_container.addChild(mc);
 		}
 		
 		public function Game(container:MovieClip) {
+			_container = container;
+			_world = new bg();
+			_world.x = -315.1;
+			_world.y = -1085.8;
+			
+			_container.addChild(_world);
+			var tmpMC:wObject = new wObject();
+			tmpMC.x = 370;
+			tmpMC.y = 220;
+			_playerSpawn = new Position(tmpMC)
+		
 			_view = CreateView();
-			_world = CreateWorld();
-			_wall = buildingWalls_mc;
+			CreateWalls();
+
 			
 			var firstPerson:worldObject = new worldObject(250,250,'person','person');
 			firstPerson.filters = [new GlowFilter(0xFF0000,1,15,15)];
@@ -46,22 +58,19 @@
 		{
 			return new Rectangle(75, 75, 500, 325);
 		}
-		private function CreateWorld():Array
+		private function CreateWalls():void
 		{
-			var ar = new Array();
-			
-			// add walls
-			ar.push(buildingWalls_mc);
+			var wall = new walls1();
+			wall.x = -175.9;
+			wall.y = -976.95;
+			_container.addChild(wall);
+			_wall = wall;
 		}
 		
 		public function MoveWorld(mv:MovementVector)
 		{
-			for each (var obj in _world)
-			{
-				obj.x+=mv.XComponent;
-				obj.y+=mv.YComponent;
-			}
-			_world.Move(mv);
+			_world.x += mv.XComponent;
+			_world.y += mv.YComponent;
 		}
 		public function MakeAvatarPickup(a:Avatar, item:ObtainableItem)
 		{			
@@ -93,10 +102,13 @@
 		
 		public function MoveAvatar(a:Avatar, mv:MovementVector)
 		{
+			trace("speed:" + mv.Speed);
+			trace("dir:" + mv.Direction);
 			// if moving the avatar along the vector will create a collision
 			// set the movement vector speed to 0;
 			if (CollideTestFails(a, mv))
 			{
+				trace("collision");
 				mv.Speed = 0;
 			}
 			
@@ -106,7 +118,7 @@
 			}
 			else
 			{
-				MoveAvatar(mv);
+				a.Move(mv);
 			}
 		}
 	}

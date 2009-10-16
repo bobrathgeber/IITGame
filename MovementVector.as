@@ -12,7 +12,7 @@
 		}
 		
 		// properties
-		public function get Speed():String
+		public function get Speed():int
 		{
 			return _speed;
 		}
@@ -20,7 +20,7 @@
   			_speed = value;
 		}
 
-		public function get Direction():String
+		public function get Direction():int
 		{
 			return _direction;
 		}
@@ -30,21 +30,30 @@
 		
 		public function get XComponent():Number
 		{		
-			return Math.cos(GetRadians(_direction)) * speed;
+			// 180 == 1
+			// 0 == -1
+			// 90 == 0
+			// 270 == 0
+			// return  
+			// return Math.cos(GetRadians(_direction)) * _speed;
 		}
 		public function get YComponent():Number
 		{
-			return Math.sin(GetRadians(_direction)) * speed;
+			// 180 == 0
+			// 0 == 0
+			// 90 == 1
+			// 270 == -1
+			// return Math.sin(GetRadians(_direction)) * _speed;
 		}
 		
-		public function Reverse(mv:MovementVector):MovementVector
+		public function Reverse():MovementVector
 		{
-			return new MovementVector(GetOppositeDirection(_direction), speed);
+			return new MovementVector(GetOppositeDirection(_direction), _speed);
 		}
 		
 		private function GetOppositeDirection(dir:Number)
 		{
-			var firstPass = dir - 180;
+			var firstPass = dir;
 			
 			if (dir < 0)
 			{

@@ -1,5 +1,6 @@
 ﻿package {
-
+	import flash.display.MovieClip;
+	
 	public class Position {
 		public var X:int;
 		public var Y:int;

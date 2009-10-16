@@ -1,30 +1,32 @@
 ﻿package {
-
+	import flash.display.BitmapData;
+	import flash.geom.*;
+	import flash.display.MovieClip;
 	public class Avatar {
 		// fields
-		private _mc:MovieClip;
-		private _inventory:Array;
-		private _pos:Position;
-		private _hitbox:Rectangle;
-		private _bmpData:BitmapData;
+		private var _mc:MovieClip;
+		private var _inventory:Array;
+		private var _pos:Position;
+		private var _hitbox:Rectangle;
+		private var _bmpData:BitmapData;
 				
 		// ctor
 		public function Avatar(mc:MovieClip) {
 			_mc = mc;			
 			_pos = new Position(mc);
 			// trace mc.Parent
-			_hitbox = new Rectangle(mc.parent);
+			_hitbox = mc.getBounds(mc.parent);
 			
 			_bmpData = new BitmapData(_hitbox.width, _hitbox.height, true, 0);
-			_bmpData.draw(avatar_mc);
+			_bmpData.draw(mc);
 		}
 		// property
-		public function get BmpData:BitmapData
+		public function get BmpData():BitmapData
 		{
 			return _bmpData;
 		}
 		// methods
-		public function Pickup(item:wObject):void
+		public function Pickup(item:ObtainableItem):void
 		{
 			//throw new Exception();
 			//_inventory.Add(item);
@@ -33,10 +35,18 @@
 		public function SetSex(avatarSex:int):void
 		{
 			if (avatarSex==1) {
-				avatar.ShowBoy();
+				ShowBoy();
 			} else {
-				avatar.ShowGirl();
+				ShowGirl();
 			}
+		}
+		public function get x():int
+		{
+			return _mc.x;
+		}
+		public function get y():int
+		{
+			return _mc.y;
 		}
 		public function ShowBoy():void
 		{
@@ -54,32 +64,20 @@
 			//item
 		}
 		
-		public function GetTarget(mv:MovementVector):Position
-		{
-			
-		}
-		
-		public function IsAtEdge(r:Rectange):Boolean
-		{
-			if (_pos.y == r.top // etc)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-			
-		}
 		
 		public function Move(mv:MovementVector):void
 		{
+			trace("speed of av:" + mv.Speed);
+			
 			// rotate
 			_mc.rotation = mv.Direction;
 			
 			// walk if moving
-			if (_mc.Speed > 0)
+			if (mv.Speed > 0)
 			{
+				trace(mv.XComponent + ", " + mv.YComponent);
+				_mc.x += mv.XComponent;
+				_mc.y += mv.YComponent;
 				_mc.gotoAndStop(_mc.currentFrame+1);
 			}		
 		}		
